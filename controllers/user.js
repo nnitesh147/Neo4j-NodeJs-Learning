@@ -220,10 +220,15 @@ export const suggestedUser = async (req, res) => {
       });
     }
 
+    const result = await session.run(
+      "MATCH (myself:User {email:$me}), (suggested:User) WHERE myself <> suggested AND NOT (myself)-[:FRIENDS]-(suggested) WITH myself, suggested, shortestPath((myself)-[:FRIENDS*..3]-(suggested)) AS path WHERE path IS NOT NULL RETURN suggested, length(path) AS hops ORDER BY hops, rand() LIMIT 10",
+      { me }
+    );
+
     return res.status(200).json({
       success: true,
       message: "Successfully fetched Suggestions friends",
-      data: user1.records,
+      data: result.records,
     });
   } catch (error) {
     return res.status(500).json({
