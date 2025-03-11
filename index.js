@@ -7,6 +7,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.json("Server is running");
+});
+
 // user routes
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
