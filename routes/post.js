@@ -5,15 +5,16 @@ import {
   likedPost,
   userPost,
 } from "../controllers/post.js";
+import { isAuthenticated } from "../middlewares/index.js";
 
 const postRouter = Router();
 
-postRouter.post("/liked-a-post", likedPost);
+postRouter.post("/liked-a-post", isAuthenticated, likedPost);
 
-postRouter.post("/comment", commentPost);
+postRouter.post("/comment", isAuthenticated, commentPost);
 
-postRouter.get("/all", allPost);
+postRouter.get("/all", isAuthenticated, allPost);
 
-postRouter.get("/user", userPost);
+postRouter.get("/user", isAuthenticated, userPost);
 
 export default postRouter;

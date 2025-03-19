@@ -8,19 +8,19 @@ import {
   register,
   suggestedUser,
 } from "../controllers/user.js";
-import { checkExistUser } from "../middlewares/index.js";
+import { checkExistUser, isAuthenticated } from "../middlewares/index.js";
 
 const userRouter = Router();
 
 userRouter.post("/register", checkExistUser, register);
-userRouter.post("/follow-other-user", followOther);
+userRouter.post("/follow-other-user", isAuthenticated, followOther);
 
-userRouter.post("/friend-request", friendRequest);
+userRouter.post("/friend-request", isAuthenticated, friendRequest);
 
-userRouter.post("/create-post", createPost);
+userRouter.post("/create-post", isAuthenticated, createPost);
 
-userRouter.get("/mutual-friends", mutualFriends);
+userRouter.get("/mutual-friends", isAuthenticated, mutualFriends);
 
-userRouter.get("/suggestion", suggestedUser);
+userRouter.get("/suggestion", isAuthenticated, suggestedUser);
 
 export default userRouter;

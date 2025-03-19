@@ -35,3 +35,8 @@ export const checkExistUser = async (req, res, next) => {
     });
   }
 };
+
+export const isAuthenticated = async (req, res, next) => {
+  // implement authentication logic here
+  next();
+};
